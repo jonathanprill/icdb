@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { SidebarData } from './SidebarData';
+import { SidebarData } from '../SidebarData';
 import { IconContext } from 'react-icons';
 
 function Navbar() {
@@ -13,10 +13,11 @@ function Navbar() {
   return (
     <>
       <IconContext.Provider value={{ color: '#fff' }}>
-        <div className='navbar'>
+        <div className='navbar-mobile'>
           <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} color={'black'}/>
+            <FaIcons.FaBars onClick={showSidebar} color={'black'} className='hamburger-menu'/>
           </Link>
+          <h2 className='navbar-mobile-title'>ICDB</h2>
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' >
@@ -24,6 +25,7 @@ function Navbar() {
               <Link to='#' className='menu-exit' onClick={showSidebar}>
                 <AiIcons.AiOutlineClose />
               </Link>
+              <h2 className='navbar-title'>ICDB</h2>
             </li>
             {SidebarData.map((item, index) => {
               return (
