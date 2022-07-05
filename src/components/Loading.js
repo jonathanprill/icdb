@@ -9,9 +9,8 @@ function Loading() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            backgroundColor: 'var(--blue-gray)',
-        }} 
-        className='loader'>
+        }}
+            className='loader'>
             <GridLoader
                 color="var(--mint-green)"
                 margin={10}

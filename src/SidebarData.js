@@ -1,43 +1,40 @@
-import React from 'react';
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import * as IoIcons from 'react-icons/io';
+import { LogosSendgridIcon, LogosServeless, LogosRefactor, LogosPuppetIcon, LogosGlitchIcon, LogosTurret } from './components/Icons';
 
 export const SidebarData = [
     {
-        title: 'Home',
+        title: 'Leaderboard',
         path: '/',
-        icon: <AiIcons.AiFillHome />,
+        icon: <LogosRefactor />,
         cName: 'nav-text'
     },
     {
-        title: 'Reports',
-        path: '/reports',
-        icon: <IoIcons.IoIosPaper />,
+        title: 'School',
+        path: '/school',
+        icon: <LogosGlitchIcon />,
         cName: 'nav-text'
     },
     {
         title: 'Products',
         path: '/products',
-        icon: <FaIcons.FaCartPlus />,
+        icon: <LogosTurret />,
         cName: 'nav-text'
     },
     {
         title: 'Team',
         path: '/team',
-        icon: <IoIcons.IoMdPeople />,
+        icon: <LogosSendgridIcon />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Connect',
+        path: '/connect',
+        icon: <LogosPuppetIcon />,
         cName: 'nav-text'
     },
     {
         title: 'Messages',
         path: '/messages',
-        icon: <FaIcons.FaEnvelopeOpenText />,
-        cName: 'nav-text'
-    },
-    {
-        title: 'Support',
-        path: '/support',
-        icon: <IoIcons.IoMdHelpCircle />,
+        icon: <LogosPuppetIcon />,
         cName: 'nav-text'
     }
 ];

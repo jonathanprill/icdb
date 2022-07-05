@@ -4,8 +4,9 @@ import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from '../SidebarData';
 import { IconContext } from 'react-icons';
+import { LogosMeteorIcon, LogosClose } from './Icons';
 
-function Navbar() {
+function SideNav() {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -16,8 +17,7 @@ function Navbar() {
         <div className='navbar-mobile'>
           <Link to='#' className='menu-bars'>
             <FaIcons.FaBars onClick={showSidebar} color={'black'} className='hamburger-menu'/>
-          </Link>
-          <h2 className='navbar-mobile-title'>ICDB</h2>
+          </Link>        
         </div>
         <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
           <ul className='nav-menu-items' >
@@ -25,7 +25,8 @@ function Navbar() {
               <Link to='#' className='menu-exit' onClick={showSidebar}>
                 <AiIcons.AiOutlineClose />
               </Link>
-              <h2 className='navbar-title'>ICDB</h2>
+              <LogosClose style={{verticalAlign: "unset"}}/>
+              <h2 className='navbar-title'>Chess Connect</h2>
             </li>
             {SidebarData.map((item, index) => {
               return (
@@ -44,4 +45,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default SideNav;
