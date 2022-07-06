@@ -112,11 +112,11 @@
     display: flex;
     justify-content: start;
     align-items: center;
-    padding-left: 33px;
+    padding-left: 23px;
     border-bottom: 2px solid gray;
 }
 
-span {
+.nav-text span {
     margin-left: 16px;
 }
 
@@ -137,6 +137,7 @@ span {
     display: flex;
     padding-left: 270px;
     padding-right: 20px;
+    padding-top: 70px;
     width: 100vw;
     justify-content: center;
 }
