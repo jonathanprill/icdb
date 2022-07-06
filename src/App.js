@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Loading from './components/Loading';
-import Landing from './pages/Landing';
+import Landing from './Router';
 
 function App() {
 
