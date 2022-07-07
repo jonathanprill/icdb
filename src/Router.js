@@ -1,18 +1,24 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import DataTable from "./pages/Leaderboard";
-import Reports from './pages/Reports';
-import Products from './pages/Products';
+import Leaderboard from "./pages/Leaderboard";
+import Connect from './pages/Connect';
+import Compete from './pages/Compete';
 import Login from './pages/Login';
+import SignUp from "./pages/SignUp";
+import School from "./pages/School";
+import Play from "./pages/Play";
 
 function Landing() {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<DataTable />} />
-                <Route path='/reports' element={<Reports />} />
-                <Route path='/products' element={<Products />} />
+                <Route path='/' element={<Leaderboard />} />
+                <Route path='/school' element={<School />} />
+                <Route path='/connect' element={<Connect />} />
+                <Route path='/compete' element={<Compete />} />
+                <Route path='/play' element={<Play />} />
                 <Route path='/login' element={<Login />} />
+                <Route path='/sign-up' element={<SignUp />} />
             </Routes>
         </Router>
     );
