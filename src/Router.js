@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import SignUp from "./pages/SignUp";
 import School from "./pages/School";
 import Play from "./pages/Play";
+import Dashboard from "./pages/Dashboard";
 
 function Landing() {
     return (
@@ -16,6 +17,7 @@ function Landing() {
                 <Route path='/school' element={<School />} />
                 <Route path='/connect' element={<Connect />} />
                 <Route path='/compete' element={<Compete />} />
+                <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/play' element={<Play />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/sign-up' element={<SignUp />} />

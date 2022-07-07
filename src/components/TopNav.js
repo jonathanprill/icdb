@@ -128,10 +128,12 @@ export default function PrimarySearchAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      
-      <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+
+      <Link style={{ textDecoration: 'none', color: 'inherit' }} to="/dashboard">
+        <MenuItem onClick={handleMenuClose}>Dashboard</MenuItem>
+      </Link>
       <MenuItem onClick={handleMenuClose}>Privacy Settings</MenuItem>
-      <hr style={{margin: '7px'}}/>
+      <hr style={{ margin: '7px' }} />
       <LoginModal />
     </Menu>
   );

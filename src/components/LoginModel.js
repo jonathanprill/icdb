@@ -47,7 +47,7 @@ function SimpleDialog(props) {
               <AddIcon />
             </Avatar>
           </ListItemAvatar>
-          <Link to="login" style={{textDecoration: 'none', color: 'inherit'}}><ListItemText primary="Add account" /></Link>
+          <Link to="/login" style={{textDecoration: 'none', color: 'inherit'}}><ListItemText primary="Add account" /></Link>
         </ListItem>
       </List>
     </Dialog>
