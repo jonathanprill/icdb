@@ -6,7 +6,7 @@ function Play() {
     <>
       <TopNav />
       <SideNav />
-      <div style={{ paddingLeft: '400px' }}>
+      <div style={{ paddingLeft: '400px', backgroundColor: '#f5f7fa' }}>
         <h1>Play</h1>
       </div>
     </>

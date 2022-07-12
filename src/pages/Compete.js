@@ -6,7 +6,7 @@ function Compete() {
     <>
       <TopNav />
       <SideNav />
-      <div style={{ paddingLeft: '400px' }}>
+      <div style={{ paddingLeft: '400px', backgroundColor: '#f5f7fa' }}>
         <h1>Compete PVP</h1>
       </div>
     </>
