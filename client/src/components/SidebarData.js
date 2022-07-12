@@ -1,10 +1,10 @@
-import { LogosSendgridIcon, LogosRefactor, LogosPuppetIcon, LogosGlitchIcon, LogosTurret } from './components/Icons';
+import { LogosSendgridIcon, LogosRefactor, LogosPuppetIcon, LogosGlitchIcon, LogosTurret } from './Icons';
 
 export const SidebarData = [
     {
-        title: 'Leaderboard',
-        path: '/',
-        icon: <LogosRefactor />,
+        title: 'Connect',
+        path: '/connect',
+        icon: <LogosPuppetIcon />,
         cName: 'nav-text'
     },
     {
@@ -20,15 +20,15 @@ export const SidebarData = [
         cName: 'nav-text'
     },
     {
-        title: 'Connect',
-        path: '/connect',
-        icon: <LogosPuppetIcon />,
-        cName: 'nav-text'
-    },
-    {
         title: 'Play',
         path: '/play',
         icon: <LogosSendgridIcon />,
+        cName: 'nav-text'
+    },
+    {
+        title: 'Leaderboard',
+        path: '/leaderboard',
+        icon: <LogosRefactor />,
         cName: 'nav-text'
     }
 ];

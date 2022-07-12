@@ -13,9 +13,10 @@ function Landing() {
     return (
         <Router>
             <Routes>
-                <Route path='/' element={<Leaderboard />} />
-                <Route path='/school' element={<School />} />
+                <Route path='/' element={<Connect />} />
                 <Route path='/connect' element={<Connect />} />
+                <Route path='/school' element={<School />} />
+                <Route path='/leaderboard' element={<Leaderboard />} />
                 <Route path='/compete' element={<Compete />} />
                 <Route path='/dashboard' element={<Dashboard />} />
                 <Route path='/play' element={<Play />} />
