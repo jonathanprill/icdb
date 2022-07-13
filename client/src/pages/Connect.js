@@ -23,20 +23,20 @@ import TopNav from "../components/TopNav";
 import SideNav from '../components/SideNav';
 
 
-function createData(location, username, name, rating, avatar) {
+function createData(city, country, username, name, rating) {
   return {
-    location,
+    city,
+    country,
     username,
     name,
-    rating,
-    avatar,
+    rating
   };
 }
 
 const rows = [
-  createData('Austin Texas', 'jony sunami', 'Jonathan P', 1017, 'imageTBD'),
-  createData('Los Angeles', 'GMHikaru', 'Hikaru Nakumara', 3051, 'imageTBD'),
-  createData('Netherlands', 'GMMagnus', 'Magnus Carlson', 3224, 'imageTBD'),
+  createData('Austin Texas', 'USA', 'jonysunami', 'Jonathan P', 1017),
+  createData('Los Angeles', 'USA', 'GMHikaru', 'Hikaru Nakumara', 3051),
+  createData('Netherlands', 'NED', 'GMMagnus', 'Magnus Carlson', 3224),
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -71,10 +71,16 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: 'location',
+    id: 'city',
     numeric: false,
     disablePadding: true,
-    label: 'location',
+    label: 'City',
+  },
+  {
+    id: 'country',
+    numeric: true,
+    disablePadding: false,
+    label: 'Country',
   },
   {
     id: 'username',
@@ -93,12 +99,6 @@ const headCells = [
     numeric: true,
     disablePadding: false,
     label: 'Rating',
-  },
-  {
-    id: 'avatar',
-    numeric: true,
-    disablePadding: false,
-    label: 'avatar',
   },
 ];
 
@@ -215,7 +215,7 @@ EnhancedTableToolbar.propTypes = {
 
 export default function Connect() {
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('username');
+  const [orderBy, setOrderBy] = React.useState('city');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -228,19 +228,19 @@ export default function Connect() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.location);
+      const newSelecteds = rows.map((n) => n.city);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
-  const handleClick = (event, location) => {
-    const selectedIndex = selected.indexOf(location);
+  const handleClick = (event, city) => {
+    const selectedIndex = selected.indexOf(city);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, location);
+      newSelected = newSelected.concat(selected, city);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -264,7 +264,7 @@ export default function Connect() {
     setPage(0);
   };
 
-  const isSelected = (location) => selected.indexOf(location) !== -1;
+  const isSelected = (city) => selected.indexOf(city) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -298,17 +298,17 @@ export default function Connect() {
                   {stableSort(rows, getComparator(order, orderBy))
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row, index) => {
-                      const isItemSelected = isSelected(row.location);
+                      const isItemSelected = isSelected(row.city);
                       const labelId = `enhanced-table-checkbox-${index}`;
 
                       return (
                         <TableRow
                           hover
-                          onClick={(event) => handleClick(event, row.location)}
+                          onClick={(event) => handleClick(event, row.city)}
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
-                          key={row.location}
+                          key={row.city}
                           selected={isItemSelected}
                         >
                           <TableCell padding="checkbox">
@@ -326,12 +326,12 @@ export default function Connect() {
                             scope="row"
                             padding="none"
                           >
-                            {row.location}
+                            {row.city}
                           </TableCell>
+                          <TableCell align="right">{row.country}</TableCell>
                           <TableCell align="right">{row.username}</TableCell>
                           <TableCell align="right">{row.name}</TableCell>
                           <TableCell align="right">{row.rating}</TableCell>
-                          <TableCell align="right">{row.avatar}</TableCell>
                         </TableRow>
                       );
                     })}
