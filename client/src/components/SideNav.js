@@ -30,7 +30,7 @@ function SideNav() {
             </li>
             {SidebarData.map((item, index) => {
               return (
-                <li key={index} className={item.cName} style={{paddingTop: '50px'}}>
+                <li key={index} className={item.cName} style={{marginTop: '20px'}}>
                   <Link to={item.path}>
                     {item.icon}
                     <span>{item.title}</span>
