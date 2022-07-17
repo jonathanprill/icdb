@@ -3,7 +3,7 @@
     --blue-gray: #293846;
     /* --mint-green: #00FFAF; */
     --mint-green: #1ab394;
-    background-color: #f5f7fa;
+    --background-color: #f5f7fa;
 }
 
 
@@ -29,6 +29,12 @@
     opacity: 1;
     animation: fade-loader-out 0.4s forwards 1.6s;
     background-color: var(--blue-gray);
+}
+
+.loader-component {
+    opacity: 1;
+    animation: fade-loader-out 0.4s forwards 1.6s;
+    background-color: white;
 }
 
 @keyframes fade-loader-out {

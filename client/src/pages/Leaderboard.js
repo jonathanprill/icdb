@@ -22,21 +22,17 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import TopNav from "../components/TopNav";
 import SideNav from '../components/SideNav';
+import LoadingComponent from '../components/LoadingComponent';
 
-
-function createData(name, calories, fat, carbs, protein) {
+function createData(name, rank, score, username, title) {
   return {
     name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    rank,
+    score,
+    username,
+    title,
   };
 }
-
-
-
-
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -73,31 +69,31 @@ const headCells = [
     id: 'name',
     numeric: false,
     disablePadding: true,
-    label: 'Dessert (100g serving)',
+    label: 'Name',
   },
   {
-    id: 'calories',
+    id: 'rank',
     numeric: true,
     disablePadding: false,
-    label: 'Calories',
+    label: 'Rank',
   },
   {
-    id: 'fat',
+    id: 'score',
     numeric: true,
     disablePadding: false,
-    label: 'Fat (g)',
+    label: 'Score',
   },
   {
-    id: 'carbs',
+    id: 'username',
     numeric: true,
     disablePadding: false,
-    label: 'Carbs (g)',
+    label: 'Username',
   },
   {
-    id: 'protein',
+    id: 'title',
     numeric: true,
     disablePadding: false,
-    label: 'Protein (g)',
+    label: 'Title',
   },
 ];
 
@@ -213,11 +209,14 @@ EnhancedTableToolbar.propTypes = {
 };
 
 export default function Leaderboard() {
+  const [rows, setRows] = useState(null);
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('calories');
+  const [orderBy, setOrderBy] = React.useState('rank');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
@@ -269,59 +268,34 @@ export default function Leaderboard() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-////////////////////////
+  useEffect(() => {
+    fetch('https://api.chess.com/pub/leaderboards')
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(data => {
+        let rows = [];
+        for (var i = 0; i < 30; i++) {
+          rows.push(createData(data.live_blitz[i].name, data.live_blitz[i].rank, data.live_blitz[i].score, data.live_blitz[i].username, data.live_blitz[i].title))
+        }
+        setRows(rows);
+      })
+      .catch(error => {
+        console.error('error fetching', error);
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
 
-// const rows = [
-
-//   createData('aaaa', 12, 3.7, 67, 4.3),
-//   createData('Donut', 452, 25.0, 51, 4.9),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-
-// ];
-
-const [data, setData] = useState(null);
-const [loading, setLoading] = useState(true);
-const [error, setError] = useState(null);
-const [rows, setRows] = useState(null);
-
-useEffect(() => {
-  fetch('https://api.github.com/users/octocat/repos')
-  .then(response => {
-    if (response.ok) {
-      return response.json()
-    }
-    throw response;
-  })
-  .then(data => {
-    setData(data);
-    // console.log(JSON.stringify(data[0].size))
-    let newNumber = JSON.stringify(data[0].size)
-    console.log(newNumber)
-    let rows = [
-
-      createData('aaaa', newNumber, 3.7, 67, 4.3),
-      createData('Donut', 452, 25.0, 51, 4.9),
-      createData('Eclair', 262, 16.0, 24, 6.0),
-      createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    
-    ];
-    setRows(rows);
-  })
-  .catch(error => {
-    console.error('error fetching', error);
-    setError(error);
-  })
-  .finally(() => {
-    setLoading(false)
-  })
-}, [])
-
-if (loading) return "loading";
-if (error) return "Error";
+  if (loading) return <LoadingComponent/>;
+  if (error) return "Error";
 
 
-//////////////////////////
 
 
   return (
@@ -362,7 +336,7 @@ if (error) return "Error";
                           role="checkbox"
                           aria-checked={isItemSelected}
                           tabIndex={-1}
-                          key={row.name}
+                          key={row.rank}
                           selected={isItemSelected}
                         >
                           <TableCell padding="checkbox">
@@ -382,10 +356,10 @@ if (error) return "Error";
                           >
                             {row.name}
                           </TableCell>
-                          <TableCell align="right">{row.calories}</TableCell>
-                          <TableCell align="right">{row.fat}</TableCell>
-                          <TableCell align="right">{row.carbs}</TableCell>
-                          <TableCell align="right">{row.protein}</TableCell>
+                          <TableCell align="right">{row.rank}</TableCell>
+                          <TableCell align="right">{row.score}</TableCell>
+                          <TableCell align="right">{row.username}</TableCell>
+                          <TableCell align="right">{row.title}</TableCell>
                         </TableRow>
                       );
                     })}
