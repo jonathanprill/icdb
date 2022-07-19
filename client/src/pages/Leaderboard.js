@@ -183,7 +183,7 @@ const EnhancedTableToolbar = (props) => {
           id="tableTitle"
           component="div"
         >
-          Top 100 Blitz Players
+          Top 30 Chess.com Blitz Players
         </Typography>
       )}
 
