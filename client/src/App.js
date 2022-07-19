@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import Loading from './components/Loading';
-import Landing from './Router';
+import MyRouter from './Router';
 
 function App() {
 
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <>
-      {isLoading === true ? <Loading /> : <Landing />}
+      {isLoading === true ? <Loading /> : <MyRouter />}
     </>
   );
 }

@@ -24,14 +24,14 @@ const typeDefs = gql`
   type Query {
     me: User
     users: [User]
-    user(username: String!): User
+    user(username: String): User
     messages: [Message]
     inbox(receiver: String): [Message]
   }
 
   type Mutation {
     login(email: String!, password: String!): Auth
-    addUser(username: String!, email: String!, password: String!): Auth
+    addUser(username: String, email: String!, password: String!): Auth
     addMessage(messageText: String!, sender: String!, receiver: String!): Message
     updateMessage(_id: ID!, messageText: String, sender: String, receiver: String): Message
     deleteMessage(_id: ID!): Message

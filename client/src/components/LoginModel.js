@@ -11,6 +11,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import AddIcon from '@mui/icons-material/Add';
 import MenuItem from '@mui/material/MenuItem';
 import { Link } from 'react-router-dom';
+import Auth from '../utils/auth';
+
 
 
 const emails = ['username@gmail.com', 'user02@gmail.com'];
@@ -73,11 +75,26 @@ export default function LoginModal() {
     setSelectedValue(value);
   };
 
+  const logout = event => {
+		event.preventDefault();
+		Auth.logout();
+	};
+
   return (
     <div>
-      <MenuItem variant="outlined" onClick={handleClickOpen}>
+      {Auth.loggedIn() ? (
+          <MenuItem href="/" onClick={logout}>
+            Logout
+            </MenuItem>
+        ) : (
+          <div>
+           
+            <MenuItem variant="outlined" onClick={handleClickOpen}>
         Login
       </MenuItem>
+          </div>
+        )}
+    
       <SimpleDialog
         selectedValue={selectedValue}
         open={open}

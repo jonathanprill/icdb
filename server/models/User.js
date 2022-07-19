@@ -5,7 +5,7 @@ const userSchema = new Schema(
   {
     username: {
       type: String,
-      required: true,
+      required: false,
       unique: true,
       trim: true,
     },
@@ -34,7 +34,6 @@ const userSchema = new Schema(
       }
     ]
   },
-  { collation: { locale: 'en_US', strength: 1 } },
   {
     toJSON: {
       virtuals: true,

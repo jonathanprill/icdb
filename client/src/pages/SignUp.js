@@ -1,3 +1,7 @@
+import React, { useState } from 'react';
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations'
+import Auth from '../utils/auth';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/material/Typography';
@@ -7,6 +11,48 @@ import Link from '@mui/joy/Link';
 import { LogosClose } from '../components/Icons';
 
 function SignUp() {
+    const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+
+    // the useMutation() Hook creates and prepares a JavaScript function that wraps around our mutation code and returns it to us. In our case, it returns in the form of the addUser function that's returned. We also get the ability to check for errors.
+    const [addUser, { error }] = useMutation(ADD_USER);
+
+    // update state based on form input changes
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+    
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+    // functionality for capturing form field data from a user and storing it in state using the useState() Hook from React
+    
+
+    // submit form (notice the async!)
+    const handleFormSubmit = async event => {
+        event.preventDefault();
+
+        // use try/catch instead of promises to handle errors
+        try {
+            // execute addUser mutation and pass in variable data from form
+            const { data } = await addUser({
+                variables: { ...formState }
+            });
+            console.log(data);
+
+
+            // take the token and set it to localStorage
+            // to use it to check if user is logged in when other component are going to be used
+            Auth.login(data.addUser.token);
+
+        } catch (e) {
+            console.error(e);
+        }
+    };
+
+
+
+
     return (
         <div style={{ backgroundColor: '#f5f7fa' }}>
             <Link sx={{
@@ -17,6 +63,7 @@ function SignUp() {
             }} href="/">
                 <LogosClose style={{ margin: '20px auto -20px auto', height: "5em", width: '5em' }} />
             </Link>
+            {error && <p className='failed text-color'>Sign in failed, please try again.</p>}
             <CssVarsProvider>
                 <Sheet
                     sx={{
@@ -31,6 +78,7 @@ function SignUp() {
                         borderRadius: 'sm',
                         boxShadow: 'md',
                     }}
+                    
                 >
                     <div>
                         <Typography level="h4" component="h1">
@@ -45,17 +93,32 @@ function SignUp() {
                         placeholder="johndoe@email.com"
                         // pass down to FormLabel as children
                         label="Email"
+                        value={formState.email}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        // html input attribute
+                        name="username"
+                        type="username"
+                        placeholder="GMHikaru"
+                        // pass down to FormLabel as children
+                        label="Chess.com Username"
+                        value={formState.username}
+                        onChange={handleChange}
                     />
                     <TextField
                         name="password"
                         type="password"
-                        placeholder="password"
+                        placeholder="password123"
                         label="Password"
+                        value={formState.password}
+                        onChange={handleChange}
                     />
                     <Button
                         sx={{
                             mt: 1, // margin top
                         }}
+                        onClick={handleFormSubmit}
                     >
                         Sign Up
                     </Button>
