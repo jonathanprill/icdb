@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { CssVarsProvider } from '@mui/joy/styles';
 import Sheet from '@mui/joy/Sheet';
 import Typography from '@mui/material/Typography';
@@ -5,8 +6,39 @@ import TextField from '@mui/joy/TextField';
 import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import { LogosClose } from '../components/Icons';
+import { LOGIN_USER } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import Auth from '../utils/auth';
 
 function Login() {
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error }] = useMutation(LOGIN_USER);
+
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async event => {
+    event.preventDefault();
+
+    try {
+      const { data } = await login({
+        variables: { ...formState }
+      });
+      // using jwt-decode
+      Auth.login(data.login.token);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     < div style={{ backgroundColor: '#f5f7fa' }}>
       <Link sx={{
@@ -46,17 +78,22 @@ function Login() {
               placeholder="johndoe@email.com"
               // pass down to FormLabel as children
               label="Email"
+              value={formState.email}
+              onChange={handleChange}
             />
             <TextField
               name="password"
               type="password"
-              placeholder="password"
+              placeholder="password123"
               label="Password"
+              value={formState.password}
+              onChange={handleChange}
             />
             <Button
               sx={{
                 mt: 1, // margin top
               }}
+              onClick={handleFormSubmit}
             >
               Log in
             </Button>
@@ -70,6 +107,7 @@ function Login() {
 
           </Sheet>
         </CssVarsProvider>
+        {error && <div>Login failed</div>}
       </div>
     </div>
   );
