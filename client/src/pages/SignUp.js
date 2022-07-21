@@ -54,14 +54,14 @@ function SignUp() {
 
 
     return (
-        <div style={{ backgroundColor: '#f5f7fa' }}>
+        <div>
             <Link sx={{
                 maxWidth: 90,
                 mx: 'auto', // margin left & right
                 display: 'flex',
                 flexDirection: 'column',
             }} href="/">
-                <LogosClose style={{ margin: '20px auto -20px auto', height: "5em", width: '5em' }} />
+                <LogosClose style={{ margin: '70px auto -20px auto', height: "5em", width: '5em' }} />
             </Link>
             {error && <p className='failed text-color'>Sign in failed, please try again.</p>}
             <CssVarsProvider>
