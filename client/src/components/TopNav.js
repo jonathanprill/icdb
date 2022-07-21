@@ -16,6 +16,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
 import LoginModal from './LoginModel';
+import Fade from '@mui/material/Fade';
+import Grow from '@mui/material/Grow';
+import Snackbar from '@mui/material/Snackbar';
+
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -87,7 +91,31 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+function GrowTransition(props) {
+  return <Grow {...props} />;
+}
+
 export default function PrimarySearchAppBar() {
+  const [state, setState] = React.useState({
+    open: false,
+    Transition: Fade,
+  });
+
+
+  const handleClick = (Transition) => () => {
+    setState({
+      open: true,
+      Transition,
+    });
+  };
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -157,11 +185,12 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="error">
+          <Badge badgeContent={1} color="error">
             <MailIcon />
           </Badge>
         </IconButton>
         <p>Messages</p>
+        
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -205,8 +234,8 @@ export default function PrimarySearchAppBar() {
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
+            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={handleClick(GrowTransition)}>
+              <Badge badgeContent={1} color="error">
                 <MailIcon />
               </Badge>
             </IconButton>
@@ -214,6 +243,7 @@ export default function PrimarySearchAppBar() {
               size="large"
               aria-label="show 17 new notifications"
               color="inherit"
+              onClick={handleClick(GrowTransition)}
             >
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
@@ -253,6 +283,13 @@ export default function PrimarySearchAppBar() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
+      <Snackbar
+          open={state.open}
+          onClose={handleClose}
+          TransitionComponent={state.Transition}
+          message="Coming Soon"
+          key={state.Transition.name}
+        />
     </Box>
   );
 }
