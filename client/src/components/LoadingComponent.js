@@ -1,5 +1,4 @@
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import GridLoader from "react-spinners/GridLoader";
 import ClipLoader from "react-spinners/ClipLoader";
 import TopNav from "./TopNav";
 import SideNav from "./SideNav";
