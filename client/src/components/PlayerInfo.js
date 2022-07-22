@@ -6,69 +6,49 @@ import Skeleton from "../components/Skeleton"
 import Auth from '../utils/auth';
 
 function PlayerInfo() {
+
+
   const { username: userParam } = useParams();
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+  const { data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
     variables: { username: userParam }
   });
   const [apiData, setApiData] = useState(null);
   const [apiLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch('https://api.chess.com/pub/leaderboards')
-    .then(response => {
-      if (response.ok) {
-        return response.json()
-      }
-      throw response;
-    })
-    .then(apiData => {
-      setApiData(apiData);
-      // console.log(apiData.live_blitz[0].name)
-    })
-    .catch(error => {
-      console.error('error fetching', error);
-      setError(error);
-    })
-    .finally(() => {
-      setLoading(false)
-    })
-  }, [])
-
-  if(apiLoading) return <Skeleton/>;
-  if (error) return "Error";
-
-
-
-  //////////////
-
   const user = data?.me || data?.user || {};
 
-    // navigate to personal profile page if username is the logged-in user's
-    if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
-      return <Navigate to="/profile" />;
-    }
-  
-    if (loading) {
-      return <div>Loading...</div>;
-    }
-  
-    // What happens if you navigate to /profile and you aren't logged in?
-    if (!user?.username) {
-      return (
-        <h4>
-          You need to be logged in to see this page. Use the navigation links above to sign up or log in!
-        </h4>
-      );
-    }
+  useEffect(() => {
+    fetch('https://api.chess.com/pub/player/' + user.username)
+      .then(response => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw response;
+      })
+      .then(apiData => {
+          setApiData(apiData);
+      })
+      .catch(error => {
+        console.error('error fetching', error);
+        setError(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }, [user.username])
+
+  if (apiLoading) return <Skeleton />;
+  if (error) return "Error";
 
   return (
-      <div>
-        <h2>
-          {user.username}
-        </h2>
-        <h5>{apiData.live_blitz[0].name}</h5>
-      </div>
+    <div>
+      <h2>{user.username}</h2>
+      {/* <h4>{apiCountryData.name}</h4> */}
+      <h5>Name: {apiData.name}</h5>
+      <img src={apiData.avatar} alt="Profile" />
+
+    </div>
   );
 }
 
