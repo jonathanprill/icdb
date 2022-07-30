@@ -10,7 +10,7 @@ import Auth from "../utils/auth"
 import PlayerInfo from "../components/PlayerInfo"
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import InboxIcon from '@mui/icons-material/Inbox';
-import { Link } from 'react-router-dom';
+import Link from '@mui/joy/Link';
 
 
 function TabPanel(props) {
@@ -76,8 +76,8 @@ export default function Dashboard() {
                         </Box>
                             ) : (
                                 <div>
-                                    <h3>User Not Logged In</h3>
-                                    <Link to="/login">Login Here</Link>
+                                    <h3 style={{paddingTop: '100px'}}>User Not Logged In</h3>
+                                    <Link sx={{ px: '5px' }} href="/login">Login Here</Link>
                                 </div>
                             )
                         }

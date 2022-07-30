@@ -119,7 +119,7 @@
     justify-content: start;
     align-items: center;
     padding-left: 23px;
-    border-bottom: 2px solid gray;
+    /* border-bottom: 2px solid gray; */
 }
 
 .nav-text span {

@@ -221,20 +221,21 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" style={{ paddingLeft: '250px', height: "80px", borderBottom: "2px solid gray", backgroundColor: "var(--blue-gray)" }}>
+      <AppBar position="static" style={{ paddingLeft: '250px', height: "80px", backgroundColor: "white" }}>
         <Toolbar style={{ minHeight: "80px" }}>
-          <Search>
+          <Search style={{ backgroundColor: "white", border: "1px solid grey" }}>
             <SearchIconWrapper>
-              <SearchIcon />
+              <SearchIcon style={{ color: "grey" }}/>
             </SearchIconWrapper>
             <StyledInputBase
               placeholder="Search…"
+              style={{ color: "grey" }}
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit" onClick={handleClick(GrowTransition)}>
+            <IconButton size="large" aria-label="show 4 new mails" style={{ color: "grey" }} onClick={handleClick(GrowTransition)}>
               <Badge badgeContent={1} color="error">
                 <MailIcon />
               </Badge>
@@ -242,7 +243,7 @@ export default function PrimarySearchAppBar() {
             <IconButton
               size="large"
               aria-label="show 17 new notifications"
-              color="inherit"
+              style={{ color: "grey" }}
               onClick={handleClick(GrowTransition)}
             >
               <Badge badgeContent={17} color="error">

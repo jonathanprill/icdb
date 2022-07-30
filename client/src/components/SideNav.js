@@ -4,7 +4,7 @@ import * as AiIcons from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { SidebarData } from './SidebarData';
 import { IconContext } from 'react-icons';
-import { LogosClose } from './Icons';
+import { LogosClose, LogosAltair } from './Icons';
 
 function SideNav() {
   const [sidebar, setSidebar] = useState(false);
@@ -25,7 +25,7 @@ function SideNav() {
               <Link to='#' className='menu-exit' onClick={showSidebar}>
                 <AiIcons.AiOutlineClose />
               </Link>
-              <LogosClose style={{verticalAlign: "unset"}}/>
+              <LogosAltair style={{verticalAlign: "unset", height: "2em", width: '2em'}}/>
               <h2 className='navbar-title'>Chess Connect</h2>
             </li>
             {SidebarData.map((item, index) => {

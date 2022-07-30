@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/joy/TextField';
 import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
-import { LogosClose } from '../components/Icons';
+import { LogosClose, LogosAltair } from '../components/Icons';
 import { LOGIN_USER } from '../utils/mutations';
 import { useMutation } from '@apollo/client';
 import Auth from '../utils/auth';
@@ -47,7 +47,7 @@ function Login() {
         display: 'flex',
         flexDirection: 'column',
       }} href="/">
-        <LogosClose style={{ margin: '70px auto -20px auto', height: "5em", width: '5em' }} />
+        <LogosAltair style={{ margin: '40px auto -20px auto', height: "5em", width: '5em' }} />
       </Link>
       <div style={{ paddingTop: '40px' }}>
         <CssVarsProvider>

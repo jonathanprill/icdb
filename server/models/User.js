@@ -21,6 +21,11 @@ const userSchema = new Schema(
       required: true,
       minlength: 5,
     },
+    city: {
+      type: String,
+      required: false,
+      minlength: 2,
+    },
     messages: [
       {
         type: Schema.Types.ObjectId,

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from "react";
 import PropTypes from 'prop-types';
 import { alpha } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -21,6 +22,11 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
 import TopNav from "../components/TopNav";
 import SideNav from '../components/SideNav';
+import { useQuery } from '@apollo/client';
+import { QUERY_USERS } from '../utils/queries';
+import Skeleton from "../components/Skeleton"
+import LoadingComponent from '../components/LoadingComponent';
+
 
 
 function createData(city, country, username, name, rating) {
@@ -32,12 +38,6 @@ function createData(city, country, username, name, rating) {
     rating
   };
 }
-
-const rows = [
-  createData('Austin Texas', 'USA', 'jonysunami', 'Jonathan P', 1017),
-  createData('Los Angeles', 'USA', 'GMHikaru', 'Hikaru Nakumara', 3051),
-  createData('Netherlands', 'NED', 'GMMagnus', 'Magnus Carlson', 3224),
-];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -80,13 +80,13 @@ const headCells = [
     id: 'country',
     numeric: true,
     disablePadding: false,
-    label: 'Country',
+    label: 'Chess.com Username',
   },
   {
     id: 'username',
     numeric: true,
     disablePadding: false,
-    label: 'Username',
+    label: 'Friends',
   },
   {
     id: 'name',
@@ -160,7 +160,6 @@ EnhancedTableHead.propTypes = {
 
 const EnhancedTableToolbar = (props) => {
   const { numSelected } = props;
-
   return (
     <Toolbar
       sx={{
@@ -219,6 +218,19 @@ export default function Connect() {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+  //Query Users start
+  const { loading, data } = useQuery(QUERY_USERS);
+  const users = data?.users || {};
+  console.log(users)
+  if (loading) {
+    return <LoadingComponent />
+  }
+  let rows = [];
+  for (var i = 0; i < users.length; i++) {
+    rows.push(createData(users[i].city, users[i].username, users[i].friendCount, users[i].username, users[i].username))
+  }
+  //Query Users End
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
