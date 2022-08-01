@@ -23,7 +23,7 @@ const userSchema = new Schema(
     },
     city: {
       type: String,
-      required: false,
+      required: true,
       minlength: 2,
     },
     messages: [

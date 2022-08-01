@@ -11,7 +11,7 @@ import Link from '@mui/joy/Link';
 import { LogosClose, LogosAltair } from '../components/Icons';
 
 function SignUp() {
-    const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+    const [formState, setFormState] = useState({ username: '', email: '', city: '', password: '' });
 
     // the useMutation() Hook creates and prepares a JavaScript function that wraps around our mutation code and returns it to us. In our case, it returns in the form of the addUser function that's returned. We also get the ability to check for errors.
     const [addUser, { error }] = useMutation(ADD_USER);
@@ -104,6 +104,16 @@ function SignUp() {
                         // pass down to FormLabel as children
                         label="Chess.com Username"
                         value={formState.username}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        // html input attribute
+                        name="city"
+                        type="city"
+                        placeholder="Austin"
+                        // pass down to FormLabel as children
+                        label="City"
+                        value={formState.city}
                         onChange={handleChange}
                     />
                     <TextField
