@@ -6,8 +6,10 @@ function School() {
     <>
       <TopNav />
       <SideNav />
-      <div style={{ paddingLeft: '400px', backgroundColor: '#f5f7fa' }}>
-        <h1>School TBD</h1>
+      <div style={{ paddingLeft: '400px' }}>
+        <h1>Lessons Coming Soon...</h1>
+       
+          
 
       </div>
     </>

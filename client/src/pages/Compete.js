@@ -22,20 +22,11 @@ function Compete() {
     <>
       <TopNav />
       <SideNav />
-      <div style={{ paddingLeft: '400px', backgroundColor: '#f5f7fa' }}>
-        <h1>Compete PVP</h1>
-        <div>
-          {/* <ul>
-            {pizzas.map((pizza) => (
-              <li key={pizza.id}>
-                <h3>
-                  {pizza.pizzaName}
-                </h3>
-                <p>{pizza.size}</p>
-              </li>
-            ))}
-          </ul> */}
-        </div>
+      <div style={{ paddingLeft: '400px' }}>
+        <h1>Compete</h1>
+       
+          
+
       </div>
     </>
   );

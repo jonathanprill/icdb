@@ -1,48 +1,48 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from "react";
+import { Chess } from 'chess.js'
+import { Chessboard } from "react-chessboard";
 import SideNav from '../components/SideNav';
 import TopNav from "../components/TopNav";
-function Play() {
 
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
+export default function Play() {
+  const [game, setGame] = useState(new Chess());
 
-  // useEffect(() => {
-  //   fetch('https://api.github.com/users/octocat/repos')
-  //   .then(response => {
-  //     if (response.ok) {
-  //       return response.json()
-  //     }
-  //     throw response;
-  //   })
-  //   .then(data => {
-  //     setData(data);
-  //     console.log(data[1].html_url)
-  //   })
-  //   .catch(error => {
-  //     console.error('error fetching', error);
-  //     setError(error);
-  //   })
-  //   .finally(() => {
-  //     setLoading(false)
-  //   })
-  // }, [])
+  function makeAMove(move) {
+    const gameCopy = { ...game };
+    const result = gameCopy.move(move);
+    setGame(gameCopy);
+    return result; // null if the move was illegal, the move object if the move was legal
+  }
 
-  // if(loading) return "loading";
-  // if (error) return "Error";
+  function makeRandomMove() {
+    const possibleMoves = game.moves();
+    if (game.game_over() || game.in_draw() || possibleMoves.length === 0)
+      return; // exit if the game is over
+    const randomIndex = Math.floor(Math.random() * possibleMoves.length);
+    makeAMove(possibleMoves[randomIndex]);
+  }
+
+  function onDrop(sourceSquare, targetSquare) {
+    const move = makeAMove({
+      from: sourceSquare,
+      to: targetSquare,
+      promotion: 'q' // always promote to a queen for example simplicity
+    });
+
+    // illegal move
+    if (move === null) return false;
+
+    setTimeout(makeRandomMove, 200);
+    return true;
+  }
 
   return (
     <>
       <TopNav />
       <SideNav />
       <div style={{ paddingLeft: '400px' }}>
-        <h1>Play</h1>
-       
-          
-
+        <Chessboard position={game.fen()} onPieceDrop={onDrop} />
       </div>
     </>
   );
 }
-
-export default Play;
